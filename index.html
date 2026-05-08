@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="so" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S𝖍𝖚𝖒𝖆𝖈 | Coffee & Fast Food</title>
+    <link rel="icon" type="image/png" href="shumac_favicon.png">
+    <link rel="shortcut icon" type="image/png" href="shumac_favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #060403;
+            --accent: #c8956c;
+            --accent-bright: #e0b88a;
+            --accent-glow: rgba(200, 149, 108, 0.35);
+            --accent-glow-strong: rgba(224, 184, 138, 0.55);
+            --glass-bg: rgba(18, 13, 10, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-border-hover: rgba(200, 149, 108, 0.4);
+            --success: #2ecc71;
+            --success-glow: rgba(46, 204, 113, 0.45);
+            --danger: #e74c3c;
+            --danger-glow: rgba(231, 76, 60, 0.35);
+            --text-primary: #f5ede4;
+            --text-muted: #b0a598;
+            --text-dim: #6b6058;
+            --radius-sm: 14px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --radius-xl: 36px;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --coffee-accent: #c8956c;
+            --coffee-glow: rgba(200, 149, 108, 0.35);
+            --food-accent: #ff4d4d;
+            --food-glow: rgba(255, 77, 77, 0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .font-header { font-family: 'Space Grotesk', sans-serif; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #3e2a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c8956c; border-radius: 10px; }
+
+        .grid-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 2px 2px, rgba(200, 149, 108, 0.04) 1px, transparent 0);
+            background-size: 38px 38px; z-index: -3; pointer-events: none;
+        }
+
+        .glow-sphere-large {
+            position: fixed; width: 650px; height: 650px;
+            background: radial-gradient(circle, rgba(200, 149, 108, 0.25) 0%, rgba(200, 149, 108, 0.1) 35%, transparent 70%);
+            z-index: -2; filter: blur(45px); pointer-events: none; border-radius: 50%;
+            transform: translate(-50%, -50%); transition: left 0.08s linear, top 0.08s linear;
+        }
+        .glow-sphere-small {
+            position: fixed; width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(255, 215, 170, 0.8) 0%, rgba(224, 184, 138, 0.4) 45%, transparent 70%);
+            z-index: -1; filter: blur(12px); pointer-events: none; border-radius: 50%;
+            transform: translate(-50%, -50%); transition: left 0.04s linear, top 0.04s linear;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(22px) saturate(180%);
+            -webkit-backdrop-filter: blur(22px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            transition: all 0.45s var(--ease-out-expo);
+        }
+        .glass-panel:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 0 35px var(--accent-glow), 0 0 70px rgba(200, 149, 108, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .add-btn-coffee {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #c8956c;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .add-btn-coffee:hover {
+            background: rgba(200,149,108,0.2);
+            border-color: rgba(200,149,108,0.5);
+            color: white;
+        }
+        .add-btn-food {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ff4d4d;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .added-coffee {
+            background: rgba(200,149,108,0.3) !important;
+            border-color: rgba(200,149,108,0.6) !important;
+            color: white !important;
+        }
+        .added-food {
+            background: rgba(255,77,77,0.3) !important;
+            border-color: rgba(255,77,77,0.6) !important;
+            color: white !important;
+        }
+        .add-btn-food:hover {
+            background: rgba(255,77,77,0.2);
+            border-color: rgba(255,77,77,0.5);
+            color: white;
+        }
+        .add-btn-drinks {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #4fc3f7;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .add-btn-drinks:hover {
+            background: rgba(79,195,247,0.2);
+            border-color: rgba(79,195,247,0.5);
+            color: white;
+        }
+        .added-drinks {
+            background: rgba(79,195,247,0.3) !important;
+            border-color: rgba(79,195,247,0.6) !important;
+            color: white !important;
+        }
+        .add-btn-sweets {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e040fb;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+        .add-btn-sweets:hover {
+            background: rgba(224,64,251,0.2);
+            border-color: rgba(224,64,251,0.5);
+            color: white;
+        }
+        .added-sweets {
+            background: rgba(224,64,251,0.3) !important;
+            border-color: rgba(224,64,251,0.6) !important;
+            color: white !important;
+        }
+
+        .btn-food {
+            background: linear-gradient(135deg, #ff4d4d, #cc0000);
+            box-shadow: 0 6px 25px rgba(255,77,77,0.35);
+            transition: all 0.35s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-food::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .btn-food:hover::after { opacity: 1; }
+        .btn-food:hover { box-shadow: 0 10px 40px rgba(255,77,77,0.55); transform: scale(1.03); }
+        .btn-food:active { transform: scale(0.97); }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(18px) saturate(160%);
+            -webkit-backdrop-filter: blur(18px) saturate(160%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 12px; text-align: center;
+            transition: all 0.45s var(--ease-out-expo);
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between;
+            animation: cardFadeIn 0.5s var(--ease-out-expo) both;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(105deg, transparent 40%, rgba(200, 149, 108, 0.08) 45%, transparent 50%);
+            transition: left 0.7s ease;
+        }
+        .card:hover::before { left: 100%; }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--accent-glow);
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-img-wrapper {
+            overflow: hidden; border-radius: var(--radius-sm);
+            margin-bottom: 10px; position: relative; background: rgba(0, 0, 0, 0.3);
+        }
+        .menu-img-wrapper img {
+            width: 100%; height: 150px; object-fit: cover;
+            transition: transform 0.7s var(--ease-out-expo); position: relative; z-index: 1;
+        }
+        .card:hover .menu-img-wrapper img { transform: scale(1.12); }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #c8956c, #9b6b44);
+            box-shadow: 0 6px 25px rgba(200, 149, 108, 0.35);
+            transition: all 0.35s var(--ease-out-expo); position: relative; overflow: hidden;
+        }
+        .btn-gold::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .btn-gold:hover::after { opacity: 1; }
+        .btn-gold:hover { box-shadow: 0 10px 40px var(--accent-glow-strong); transform: scale(1.03); }
+        .btn-gold:active { transform: scale(0.97); }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .cart-item-anim { animation: slideInRight 0.45s var(--ease-out-expo) forwards; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px var(--accent-glow), 0 0 40px rgba(200, 149, 108, 0.1); }
+            50% { box-shadow: 0 0 40px var(--accent-glow-strong), 0 0 80px rgba(200, 149, 108, 0.25); }
+        }
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.45; }
+        }
+        .pulse-glow-anim { animation: pulse-glow 2.2s ease-in-out infinite; }
+        .pulse-text-anim { animation: pulse-text 2s ease-in-out infinite; }
+
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 200;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { transform: scale(0.88) translateY(25px); transition: all 0.5s var(--ease-spring); }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
+
+        ::selection { background: rgba(200, 149, 108, 0.5); color: #fff; }
+
+        .section {
+            transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+        }
+        .section.hidden-section {
+            display: none;
+        }
+        .section.fade-in {
+            animation: sectionFadeIn 0.6s var(--ease-out-expo) forwards;
+        }
+        @keyframes sectionFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-tab {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            user-select: none;
+        }
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            border-radius: 3px;
+            transition: all 0.4s var(--ease-out-expo);
+            transform: translateX(-50%);
+        }
+        .nav-tab.active-coffee::after {
+            width: 70%;
+            background: var(--coffee-accent);
+            box-shadow: 0 0 15px var(--coffee-glow);
+        }
+        .nav-tab.active-drinks::after {
+            width: 70%;
+            background: #4fc3f7;
+            box-shadow: 0 0 15px rgba(79,195,247,0.35);
+        }
+        .nav-tab.active-sweets::after {
+            width: 70%;
+            background: #e040fb;
+            box-shadow: 0 0 15px rgba(224,64,251,0.35);
+        }
+        .nav-tab.active-food::after {
+            width: 70%;
+            background: var(--food-accent);
+            box-shadow: 0 0 15px var(--food-glow);
+        }
+        .nav-tab:not(.active-coffee):not(.active-food)::after {
+            width: 0;
+        }
+
+        .tab-indicator {
+            position: absolute;
+            bottom: -2px;
+            height: 3px;
+            border-radius: 3px;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        
+        .search-input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            transition: all 0.3s var(--ease-out-expo);
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .search-input::placeholder { color: #6b6058; }
+
+        .badge-popular {
+            position: absolute; top: 8px; right: 8px; z-index: 5;
+            background: linear-gradient(135deg, #ff6b35, #e63946);
+            color: white; font-size: 9px; font-weight: 800;
+            padding: 3px 8px; border-radius: 20px; letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(230,57,70,0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        .badge-bestseller {
+            position: absolute; top: 8px; left: 8px; z-index: 5;
+            background: linear-gradient(135deg, #f7b731, #f39c12);
+            color: #1a1a2e; font-size: 9px; font-weight: 800;
+            padding: 3px 8px; border-radius: 20px; letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(243,156,18,0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nav-badge {
+            position: absolute; top: -6px; right: -6px;
+            min-width: 18px; height: 18px; border-radius: 999px;
+            font-size: 9px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0 4px; transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+            transform: scale(0); opacity: 0;
+        }
+        .nav-badge.show { transform: scale(1); opacity: 1; }
+        .nav-badge.badge-coffee { background: #c8956c; color: #fff; box-shadow: 0 0 12px rgba(200,149,108,0.5); }
+        .nav-badge.badge-food { background: #ff4d4d; color: #fff; box-shadow: 0 0 12px rgba(255,77,77,0.5); }
+        .nav-badge.badge-drinks { background: #4fc3f7; color: #fff; box-shadow: 0 0 12px rgba(79,195,247,0.5); }
+        .nav-badge.badge-sweets { background: #e040fb; color: #fff; box-shadow: 0 0 12px rgba(224,64,251,0.5); }
+
+        .notes-textarea {
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08);
+            color: white; border-radius: 12px; padding: 10px 14px;
+            font-size: 13px; width: 100%; outline: none; resize: none;
+            transition: all 0.3s var(--ease-out-expo); font-family: inherit;
+        }
+        .notes-textarea:focus { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+
+        .accent-drinks { color: #4fc3f7; }
+        .accent-sweets { color: #e040fb; }
+        .glow-drinks { text-shadow: 0 0 15px rgba(79,195,247,0.4); }
+        .glow-sweets { text-shadow: 0 0 15px rgba(224,64,251,0.4); }
+
+        .placeholder-img {
+            width: 100%; height: 150px; object-fit: cover;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 42px; border-radius: 12px;
+        }
+
+        .notes-textarea::placeholder { color: #6b6058; }
+
+        .price-color-coffee { color: var(--coffee-accent); }
+        .price-color-food { color: var(--food-accent); }
+        .heading-accent-coffee { color: var(--coffee-accent); }
+        .heading-accent-food { color: var(--food-accent); }
+
+        @media (max-width: 768px) {
+            .glow-sphere-large { width: 350px; height: 350px; }
+            .glow-sphere-small { width: 130px; height: 130px; }
+            .card { padding: 10px; }
+            .menu-img-wrapper img { height: 120px; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="grid-bg"></div>
+    <div class="glow-sphere-large" id="sphereLarge"></div>
+    <div class="glow-sphere-small" id="sphereSmall"></div>
+
+    <header class="sticky top-0 z-50 w-full backdrop-blur-2xl border-b border-white/5 bg-black/70 py-3 px-5 md:px-10">
+        <div class="max-w-[1600px] mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 overflow-hidden shadow-lg relative group cursor-pointer shrink-0 bg-white" id="headerLogo">
+                    <img src="Coffe_icon.png" alt="Shumac Logo" class="w-full h-full object-cover scale-[1.2] transition-all duration-500 group-hover:scale-[1.35]" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="hidden w-full h-full bg-gradient-to-br from-[#c8956c] via-[#a0724a] to-[#5c3a21] items-center justify-center text-white font-bold font-header text-lg">S</div>
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>
+                </div>
+                <div>
+                    <h1 class="font-header font-bold text-lg md:text-xl tracking-tight" id="headerTitle">
+                        S𝖍𝖚𝖒𝖆𝖈 <span id="headerAccent" class="drop-shadow-[0_0_12px_rgba(200,149,108,0.5)]" style="color:#c8956c;">C𝖔𝖋𝖋𝖊𝖆</span>
+                    </h1>
+                </div>
+            </div>
+
+            <nav class="flex items-center gap-1 md:gap-2 bg-black/40 border border-white/5 rounded-2xl p-1.5 backdrop-blur-md relative">
+                <div class="tab-indicator" id="tabIndicator"></div>
+                <button class="nav-tab active-coffee px-4 md:px-6 py-2 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 flex items-center gap-2 relative" id="tabCoffee" onclick="switchSection('coffee')">
+                    <span>☕</span>
+                    <span class="hidden sm:inline">Coffee</span>
+                    <span class="nav-badge badge-coffee" id="coffee-nav-count">0</span>
+                </button>
+                <button class="nav-tab px-4 md:px-6 py-2 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 flex items-center gap-2 relative text-white/60 hover:text-white" id="tabFood" onclick="switchSection('food')">
+                    <span>🍔</span>
+                    <span class="hidden sm:inline">Fast Food</span>
+                    <span class="nav-badge badge-food" id="food-nav-count">0</span>
+                </button>
+                <button class="nav-tab px-4 md:px-6 py-2 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 flex items-center gap-2 relative text-white/60 hover:text-white" id="tabDrinks" onclick="switchSection('drinks')">
+                    <span>🥤</span>
+                    <span class="hidden sm:inline">Drinks</span>
+                    <span class="nav-badge badge-drinks" id="drinks-nav-count">0</span>
+                </button>
+                <button class="nav-tab px-4 md:px-6 py-2 rounded-xl font-bold text-sm tracking-wide transition-all duration-300 flex items-center gap-2 relative text-white/60 hover:text-white" id="tabSweets" onclick="switchSection('sweets')">
+                    <span>🍬</span>
+                    <span class="hidden sm:inline">Sweets</span>
+                    <span class="nav-badge badge-sweets" id="sweets-nav-count">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-[1600px] mx-auto px-4 md:px-8 py-6 md:py-8">
+
+        <div id="coffeeSection" class="section fade-in">
+            <div class="flex flex-col lg:flex-row gap-8 min-h-[80vh]">
+                <div class="flex-grow w-full lg:w-2/3">
+                    <div class="mb-6">
+                        <h2 class="text-3xl md:text-4xl font-header font-bold mb-2 tracking-tight">
+                            Liiska <span class="heading-accent-coffee drop-shadow-[0_0_15px_rgba(200,149,108,0.4)]">Orders-ka</span>
+                        </h2>
+                        <p class="text-[#8a7a6a] text-sm tracking-wide">☕ Dalbo hadda - Waxaan kugu diyaarinaynaa 15 daqiiqo!</p>
+                    </div>
+                    <div class="relative mb-4">
+                    <input type="text" id="coffee-search" class="search-input w-full py-3 px-4 rounded-xl text-sm" placeholder="🔍 Search coffee menu..." oninput="filterMenu('coffee', this.value)">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" id="coffee-menu-grid"></div>
+                </div>
+                <div class="w-full lg:w-1/3 lg:sticky lg:top-28 h-fit">
+                    <div class="glass-panel p-5 md:p-7 flex flex-col min-h-[500px] md:min-h-[580px]">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-xl md:text-2xl font-header font-bold tracking-tight">Dalabkaaga</h3>
+                            <span class="text-xs font-bold px-3 py-1.5 rounded-full border tracking-wider price-color-coffee border-current/30 bg-current/10" id="coffee-cart-count">0 Items</span>
+                        </div>
+                        <div class="flex-grow flex flex-col overflow-y-auto pr-2 space-y-2 my-3" id="coffee-cart-list"></div>
+                        <div class="mt-auto pt-5 border-t border-white/8">
+                            <div class="flex justify-between items-end mb-5">
+                                <span class="text-[#8a7a6a] uppercase tracking-[0.2em] text-[22px] font-bold">Total</span>
+                                <span class="text-3xl md:text-2x5 font-header font-black text-white transition-all duration-400" id="coffee-total-price">$0.00</span>
+                            </div>
+                            <button class="w-full btn-gold text-white font-bold py-4 rounded-xl tracking-wider flex justify-center items-center gap-2 group text-sm md:text-base checkout-btn" data-section="coffee">
+                                <span class="group-hover:translate-x-1.5 transition-transform duration-300 text-lg">↪</span>
+                                <span>Dalbo</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="foodSection" class="section hidden-section">
+            <div class="flex flex-col lg:flex-row gap-8 min-h-[80vh]">
+                <div class="flex-grow w-full lg:w-2/3">
+                    <div class="mb-6">
+                        <h2 class="text-3xl md:text-4xl font-header font-bold mb-2 tracking-tight">
+                            Liiska <span class="heading-accent-food drop-shadow-[0_0_15px_rgba(255,77,77,0.4)]" style="color:#ff8c00;">Cuntada</span>
+                        </h2>
+                        <p class="text-[#8a7a6a] text-sm tracking-wide">🍔 Dalbo hadda - Waxaan kugu diyaarinaynaa 15 daqiiqo!</p>
+                    </div>
+                    <div class="relative mb-4">
+                    <input type="text" id="food-search" class="search-input w-full py-3 px-4 rounded-xl text-sm" placeholder="🔍 Search food menu..." oninput="filterMenu('food', this.value)">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" id="food-menu-grid"></div>
+                </div>
+                <div class="w-full lg:w-1/3 lg:sticky lg:top-28 h-fit">
+                    <div class="glass-panel p-5 md:p-7 flex flex-col min-h-[500px] md:min-h-[580px]">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-xl md:text-2xl font-header font-bold tracking-tight">Dalabkaaga</h3>
+                            <span class="text-xs font-bold px-3 py-1.5 rounded-full border tracking-wider" style="color:#ff4d4d;border-color:rgba(255,77,77,0.3);background:rgba(255,77,77,0.1);" id="food-cart-count">0 Items</span>
+                        </div>
+                        <div class="flex-grow flex flex-col overflow-y-auto pr-2 space-y-2 my-3" id="food-cart-list"></div>
+                        <div class="mt-auto pt-5 border-t border-white/8">
+                            <div class="flex justify-between items-end mb-5">
+                                <span class="text-[#8a7a6a] uppercase tracking-[0.2em] text-[22px] font-bold">Total</span>
+                                <span class="text-3xl md:text-2x5 font-header font-black text-white transition-all duration-400" id="food-total-price">$0.00</span>
+                            </div>
+                            <button class="w-full btn-food font-bold py-4 rounded-xl tracking-wider flex justify-center items-center gap-2 group text-sm md:text-base checkout-btn text-white" data-section="food">
+                                <span class="group-hover:translate-x-1.5 transition-transform duration-300 text-lg">↪</span>
+                                <span>Dalbo</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <div id="drinksSection" class="section hidden-section">
+            <div class="flex flex-col lg:flex-row gap-8 min-h-[80vh]">
+                <div class="flex-grow w-full lg:w-2/3">
+                    <div class="mb-6">
+                        <h2 class="text-3xl md:text-4xl font-header font-bold mb-2 tracking-tight">
+                            Liiska <span class="accent-drinks glow-drinks">Cabbitaannada</span>
+                        </h2>
+                        <p class="text-[#8a7a6a] text-sm tracking-wide">🥤 Nala cabo wax macaan!</p>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="text" id="drinks-search" class="search-input w-full py-3 px-4 rounded-xl text-sm" placeholder="🔍 Search drinks..." oninput="filterMenu('drinks', this.value)">
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" id="drinks-menu-grid"></div>
+                </div>
+                <div class="w-full lg:w-1/3 lg:sticky lg:top-28 h-fit">
+                    <div class="glass-panel p-5 md:p-7 flex flex-col min-h-[500px] md:min-h-[580px]">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-xl md:text-2xl font-header font-bold tracking-tight">Dalabkaaga</h3>
+                            <span class="text-xs font-bold px-3 py-1.5 rounded-full border tracking-wider accent-drinks border-current/30 bg-current/10" id="drinks-cart-count">0 Items</span>
+                        </div>
+                        <div class="flex-grow flex flex-col overflow-y-auto pr-2 space-y-2 my-3" id="drinks-cart-list"></div>
+                        <div class="mt-auto pt-5 border-t border-white/8">
+                            <div class="flex justify-between items-end mb-5">
+                                <span class="text-[#8a7a6a] uppercase tracking-[0.2em] text-[22px] font-bold">Total</span>
+                                <span class="text-3xl md:text-2x5 font-header font-black text-white transition-all duration-400" id="drinks-total-price">$0.00</span>
+                            </div>
+                            <button class="w-full checkout-btn text-white font-bold py-4 rounded-xl tracking-wider flex justify-center items-center gap-2 group text-sm md:text-base" data-section="drinks" style="background:linear-gradient(135deg,#4fc3f7,#0288d1);box-shadow:0 6px 25px rgba(79,195,247,0.35);">
+                                <span class="group-hover:translate-x-1.5 transition-transform duration-300 text-lg">↪</span>
+                                <span>Dalbo</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sweetsSection" class="section hidden-section">
+            <div class="flex flex-col lg:flex-row gap-8 min-h-[80vh]">
+                <div class="flex-grow w-full lg:w-2/3">
+                    <div class="mb-6">
+                        <h2 class="text-3xl md:text-4xl font-header font-bold mb-2 tracking-tight">
+                            Liiska <span class="accent-sweets glow-sweets">Macmacaanka</span>
+                        </h2>
+                        <p class="text-[#8a7a6a] text-sm tracking-wide">🍬 Dhadhan macaan oo aad u qaalib ah!</p>
+                    </div>
+                    <div class="relative mb-4">
+                        <input type="text" id="sweets-search" class="search-input w-full py-3 px-4 rounded-xl text-sm" placeholder="🔍 Search sweets..." oninput="filterMenu('sweets', this.value)">
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5" id="sweets-menu-grid"></div>
+                </div>
+                <div class="w-full lg:w-1/3 lg:sticky lg:top-28 h-fit">
+                    <div class="glass-panel p-5 md:p-7 flex flex-col min-h-[500px] md:min-h-[580px]">
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-xl md:text-2xl font-header font-bold tracking-tight">Dalabkaaga</h3>
+                            <span class="text-xs font-bold px-3 py-1.5 rounded-full border tracking-wider accent-sweets border-current/30 bg-current/10" id="sweets-cart-count">0 Items</span>
+                        </div>
+                        <div class="flex-grow flex flex-col overflow-y-auto pr-2 space-y-2 my-3" id="sweets-cart-list"></div>
+                        <div class="mt-auto pt-5 border-t border-white/8">
+                            <div class="flex justify-between items-end mb-5">
+                                <span class="text-[#8a7a6a] uppercase tracking-[0.2em] text-[22px] font-bold">Total</span>
+                                <span class="text-3xl md:text-2x5 font-header font-black text-white transition-all duration-400" id="sweets-total-price">$0.00</span>
+                            </div>
+                            <button class="w-full checkout-btn text-white font-bold py-4 rounded-xl tracking-wider flex justify-center items-center gap-2 group text-sm md:text-base" data-section="sweets" style="background:linear-gradient(135deg,#e040fb,#aa00ff);box-shadow:0 6px 25px rgba(224,64,251,0.35);">
+                                <span class="group-hover:translate-x-1.5 transition-transform duration-300 text-lg">↪</span>
+                                <span>Dalbo</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="customAlertModal" class="modal-overlay flex items-center justify-center p-4" style="z-index:9999!important;">
+        <div class="glass-panel border-red-500/35 modal-content p-8 md:p-10 max-w-sm w-full text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-red-500/8 rounded-bl-full blur-3xl pointer-events-none"></div>
+            <div class="w-14 h-14 bg-red-500/15 rounded-full flex items-center justify-center mx-auto mb-5 border-2 border-red-500/30 text-red-400 text-2xl font-bold relative z-10">!</div>
+            <h3 class="text-xl font-header font-bold text-white mb-2 relative z-10">Fiiro Gaar Ah</h3>
+            <p id="customAlertMessage" class="text-[#b0a598] text-sm mb-7 relative z-10 leading-relaxed"></p>
+            <button onclick="closeModal('customAlertModal')" class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 text-sm tracking-wider uppercase font-bold text-white relative z-10">Waan Fahmay</button>
+        </div>
+    </div>
+
+    <div id="errorModal" class="modal-overlay flex items-center justify-center p-4">
+        <div class="glass-panel border-red-500/35 modal-content p-8 md:p-10 max-w-md w-full text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-red-500/8 rounded-bl-full blur-3xl pointer-events-none"></div>
+            <div class="w-16 h-16 bg-red-500/15 rounded-full flex items-center justify-center mx-auto mb-5 border-2 border-red-500/30 text-red-400 text-3xl relative z-10">↺</div>
+            <h3 class="text-xl font-header font-bold text-white mb-2 relative z-10">Fadlan Wax Dalbo</h3>
+            <p id="errorMessage" class="text-[#b0a598] text-sm mb-7 relative z-10 leading-relaxed"></p>
+            <button onclick="closeModal('errorModal')" class="w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl transition-all duration-300 text-sm tracking-wider uppercase font-bold text-white relative z-10">Waan Fahmay</button>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal-overlay flex items-center justify-center p-4">
+        <div class="glass-panel border-[#2ecc71]/40 modal-content p-8 md:p-10 max-w-md w-full relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-[#2ecc71]/10 rounded-bl-full blur-3xl pointer-events-none"></div>
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-[#2ecc71]/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-[#2ecc71]/40">
+                    <span class="text-2xl">💸</span>
+                </div>
+                <h3 class="text-2xl font-header font-bold text-white">Xaqiijinta <span class="text-[#2ecc71]">EVC Plus</span></h3>
+                <p class="text-xs text-[#b0a598] mt-2 tracking-wide">Fadlan ku qor nambarkaaga si aad lacagta u dirto</p>
+            </div>
+            <div class="bg-black/50 border border-white/10 rounded-xl p-5 mb-6 relative z-10">
+                <label class="block text-xs uppercase tracking-widest text-[#8a7a6a] font-bold mb-2">Nambarkaaga</label>
+                <input type="tel" id="userPhoneInput" placeholder="Tusaale: 061XXXXXXX" class="w-full bg-transparent border-b-2 border-white/10 focus:border-[#2ecc71] text-white text-xl py-2 mb-5 outline-none transition-all placeholder-white/20" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="15">
+                <div class="flex justify-between items-center border-t border-white/10 pt-4">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-[#8a7a6a] font-bold mb-1">Ku Shub</p>
+                        <p class="text-white font-mono font-bold tracking-wider text-lg">617213867</p>
+                        <p class="text-[#c8956c] text-xs" id="paymentMerchantName">S𝖍𝖚𝖒𝖆𝖈 C𝖔𝖋𝖋𝖊𝖆</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] uppercase tracking-widest text-[#8a7a6a] font-bold mb-1">Wadarta</p>
+                        <p class="text-[#2ecc71] font-bold text-xl" id="evcTotalAmount">$0.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 relative z-10">
+                <label class="block text-xs uppercase tracking-widest text-[#8a7a6a] font-bold mb-2">Fiiro Gaar Ah (Ikhtiyaar)</label>
+                <textarea id="customerNotes" class="notes-textarea" rows="2" placeholder="Wax faahfaahin ah... (no sugar, extra cheese, etc.)"></textarea>
+            </div>
+            <button onclick="verifyPayment()" class="w-full py-4 bg-[#2ecc71] hover:bg-[#27ae60] rounded-xl transition-all duration-300 text-white font-bold text-sm tracking-wider uppercase shadow-[0_0_20px_rgba(46,204,113,0.3)] relative z-10">Confirm / Xaqiiji</button>
+            <button onclick="closeModal('paymentModal')" class="w-full mt-4 text-[#8a7a6a] hover:text-white text-sm transition-all">Dib u noqo</button>
+        </div>
+    </div>
+
+    <div id="addressModal" class="modal-overlay flex items-center justify-center p-4">
+        <div class="glass-panel border-[#c8956c]/40 modal-content p-8 md:p-10 max-w-md w-full relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-[#c8956c]/10 rounded-bl-full blur-3xl pointer-events-none"></div>
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-[#c8956c]/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-[#c8956c]/40">
+                    <span class="text-2xl">📍</span>
+                </div>
+                <h3 class="text-2xl font-header font-bold text-white">Cinwaankaaga</h3>
+                <p class="text-xs text-[#b0a598] mt-2 tracking-wide">Halkee baan kuugu keennaa dalabka?</p>
+            </div>
+            <div class="mb-6 relative z-30 custom-select-wrapper">
+                <div id="customSelectDisplay" class="w-full bg-black/50 border border-white/10 hover:border-[#c8956c] text-white text-base py-3.5 px-4 rounded-xl cursor-pointer transition-all flex justify-between items-center shadow-inner" onclick="toggleDropdown()">
+                    <span id="selectedAddressText" class="text-[#8a7a6a]">Dooro Degmadaada (Muqdisho)...</span>
+                    <span class="text-[#c8956c] text-xs transition-transform duration-300" id="dropdownArrow">▼</span>
+                </div>
+                <div id="customSelectList" class="absolute top-[110%] left-0 w-full bg-[#120d0a]/95 backdrop-blur-2xl border border-white/10 rounded-xl shadow-2xl max-h-56 overflow-y-auto hidden flex-col z-50 custom-scrollbar opacity-0 transform -translate-y-2 transition-all duration-300"></div>
+            </div>
+            <button onclick="confirmAddress()" class="w-full btn-gold text-white font-bold py-4 rounded-xl tracking-wider text-sm uppercase relative z-10">Xaqiiji Cinwaanka</button>
+            <button onclick="closeModal('addressModal')" class="w-full mt-4 text-[#8a7a6a] hover:text-white text-sm transition-all relative z-10">Jooji Dalabka</button>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal-overlay flex items-center justify-center p-4">
+        <div class="glass-panel border-[#c8956c]/50 modal-content p-8 md:p-12 max-w-lg w-full text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-52 h-52 bg-[#c8956c]/8 rounded-bl-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-36 h-36 bg-[#c8956c]/5 rounded-tr-full blur-2xl pointer-events-none"></div>
+            <button onclick="minimizeSuccessModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/25 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 z-20 text-sm" title="Xir oo saacada u wareeji cart-ka">✕</button>
+            <p class="text-[10px] text-[#c8956c] font-bold uppercase tracking-[0.35em] mb-3 pulse-text-anim relative z-10">Dalabka waa la xaqiijiyay</p>
+            <h3 class="text-2xl md:text-3xl font-header font-bold text-white mb-7 relative z-10">Diyaarinta <span class="text-[#c8956c] drop-shadow-[0_0_12px_rgba(200,149,108,0.5)]">Bilaabatay.</span></h3>
+            <div class="glass-panel p-6 border-[#c8956c]/25 mb-7 bg-black/35 relative z-10 pulse-glow-anim">
+                <p class="text-[9px] uppercase tracking-[0.3em] text-[#8a7a6a] mb-3 font-bold">Waqtiga Ka Harsan</p>
+                <div class="flex justify-center items-baseline gap-1.5">
+                    <span class="text-6xl md:text-7xl font-header font-black text-white drop-shadow-[0_0_18px_rgba(200,149,108,0.5)]" id="modalCountMin">15</span>
+                    <span class="text-2xl text-[#8a7a6a] font-light mx-1">:</span>
+                    <span class="text-6xl md:text-7xl font-header font-black text-white w-[90px] text-left drop-shadow-[0_0_18px_rgba(200,149,108,0.5)]" id="modalCountSec">00</span>
+                </div>
+            </div>
+            <p class="text-[#b0a598] text-sm mb-7 relative z-10 leading-relaxed">Fadlan riix badhanka hoose si aad <strong class="text-white">WhatsApp</strong> ugu dirto dalabkaaga.</p>
+            <button id="whatsappBtn" class="w-full py-4 bg-[#25D366] hover:bg-[#20bd5a] rounded-xl transition-all duration-300 text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(37,211,102,0.35)] hover:shadow-[0_0_50px_rgba(37,211,102,0.55)] relative z-10" onclick="sendWhatsApp()">
+                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                </svg>
+                Dir Fariinta WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const sphereLarge = document.getElementById('sphereLarge');
+        const sphereSmall = document.getElementById('sphereSmall');
+        const moveSpheres = (x, y) => {
+            if (sphereLarge) { sphereLarge.style.left = x + 'px'; sphereLarge.style.top = y + 'px'; }
+            if (sphereSmall) { sphereSmall.style.left = x + 'px'; sphereSmall.style.top = y + 'px'; }
+        };
+        document.addEventListener('mousemove', e => moveSpheres(e.clientX, e.clientY));
+        document.addEventListener('touchmove', e => { if (e.touches.length > 0) moveSpheres(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+
+        const coffeeProducts = [
+    { id: 15, name: "Affogato", price: 5.50, img: "Affogato.jfif?w=200" },
+    { id: 6, name: "Americano", price: 3.00, img: "Americano.jfif?w=200" },
+    { id: 20, name: "Black Tea", price: 1.50, img: "Black Tea.jfif?w=200" },
+    { id: 19, name: "Brownie Slice", price: 3.00, img: "Brownie Slice.jfif?w=200" },
+    { id: 2, name: "Cappuccino", price: 3.50, img: "Cappuccino.jfif?w=200", badge: "popular" },
+    { id: 10, name: "Caramel Latte", price: 4.50, img: "Caramel Latte.jfif?w=200" },
+    { id: 12, name: "Cold Brew", price: 4.50, img: "Cold Brew.jfif?w=200" },
+    { id: 16, name: "Cortado", price: 3.40, img: "Cortado.jfif?w=200" },
+    { id: 18, name: "Croissant", price: 2.00, img: "Croissant.jfif?w=200" },
+    { id: 1, name: "Espresso", price: 2.50, img: "Espresso.jfif?w=200", badge: "bestseller" },
+    { id: 7, name: "Flat White", price: 3.70, img: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=200" },
+    { id: 13, name: "Hot Chocolate", price: 3.50, img: "Hot Chocolate.jfif?w=200" },
+    { id: 4, name: "Iced Latte", price: 4.00, img: "Iced Latte.png?w=200", badge: "popular" },
+    { id: 3, name: "Latte", price: 3.80, img: "Latte.jfif?w=200" },
+    { id: 8, name: "Macchiato", price: 3.20, img: "Macchiato.jfif?w=200" },
+    { id: 5, name: "Mocha", price: 4.20, img: "Mocha.png?w=200" },
+    { id: 14, name: "Spanish Latte", price: 4.80, img: "Spanish Latte.jfif?w=200" },
+    { id: 9, name: "Turkish Coffee", price: 2.80, img: "Turkish Coffee.jfif?w=200", badge: "bestseller" },
+    { id: 11, name: "V60 Drip", price: 5.00, img: "V60 Drip.jfif?w=200" },
+    { id: 17, name: "Vanilla Frappe", price: 5.20, img: "Vanilla Frappe.jfif?w=200", badge: "popular" },
+];
+
+        const foodProducts = [
+    { id: 1, name: "Burgers", price: 12.50, img: "Burgers.jpg?w=200", badge: "popular" },
+    { id: 17, name: "Burritos", price: 15.20, img: "Burritos.jpg?w=200" },
+    { id: 8, name: "Carne Asada", price: 17.20, img: "Carne Asada.jpg?w=200", badge: "popular" },
+    { id: 9, name: "Carnitas", price: 21.80, img: "Carnitas.jpg?w=200" },
+    { id: 15, name: "Chimichangas", price: 15.80, img: "Chimichangas.jpg?w=200" },
+    { id: 20, name: "Chips & Salsa", price: 17.80, img: "Chips & Salsa.jpg?w=200", badge: "bestseller" },
+    { id: 7, name: "Churros", price: 18.70, img: "Churros.jpg?w=200" },
+    { id: 6, name: "Elote", price: 15.00, img: "Elote.jpg?w=200" },
+    { id: 13, name: "Enchiladas", price: 13.80, img: "Enchiladas.jpg?w=200" },
+    { id: 14, name: "Fajitas", price: 14.80, img: "Fajitas.jpg?w=200" },
+    { id: 2, name: "French Fries", price: 17.50, img: "French Fries.jpg?w=200" },
+    { id: 4, name: "Fried Chicken", price: 18.00, img: "Fried Chicken.jpg?w=200" },
+    { id: 12, name: "Guacamole", price: 14.50, img: "Guacamole.jpg?w=200" },
+    { id: 5, name: "Hot Dogs", price: 10.20, img: "Hot Dogs.jpg?w=200" },
+    { id: 18, name: "Nachos", price: 19.80, img: "Nachos.jpg?w=200" },
+    { id: 3, name: "Pizza", price: 20.80, img: "Pizza.jpg?w=200", badge: "bestseller" },
+    { id: 19, name: "Quesadillas", price: 18.80, img: "Quesadillas.jpg?w=200" },
+    { id: 10, name: "Taco Salad", price: 14.50, img: "Taco Salad.jpg?w=200" },
+    { id: 16, name: "Tacos", price: 13.40, img: "Tacos.jpg?w=200" },
+    { id: 11, name: "Tamales", price: 15.30, img: "Tamales.jpg?w=200" },
+];
+const drinksProducts = [
+    { id: 9, name: "Berry Delight", price: 6.00, img: "Berry Delight.jpg" },
+    { id: 8, name: "Energy Drink", price: 3.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EEnergy Drink%3C/text%3E%3C/svg%3E" },
+    { id: 1, name: "Fresh Orange Juice", price: 3.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EFresh Orange Juice%3C/text%3E%3C/svg%3E" },
+    { id: 3, name: "Iced Tea", price: 3.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EIced Tea%3C/text%3E%3C/svg%3E" },
+    { id: 2, name: "Lemonade", price: 2.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3ELemonade%3C/text%3E%3C/svg%3E" },
+    { id: 5, name: "Milkshake", price: 4.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EMilkshake%3C/text%3E%3C/svg%3E", badge: "bestseller" },
+    { id: 4, name: "Smoothie", price: 5.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3ESmoothie%3C/text%3E%3C/svg%3E", badge: "popular" },
+    { id: 7, name: "Soda", price: 1.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3ESoda%3C/text%3E%3C/svg%3E" },
+    { id: 6, name: "Water", price: 1.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%234fc3f720'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%234fc3f7'%3E🥤%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EWater%3C/text%3E%3C/svg%3E" },
+];
+const sweetsProducts = [
+    { id: 8, name: "Brownie", price: 3.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EBrownie%3C/text%3E%3C/svg%3E" },
+    { id: 5, name: "Cheesecake", price: 5.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3ECheesecake%3C/text%3E%3C/svg%3E" },
+    { id: 1, name: "Chocolate Cake", price: 4.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EChocolate Cake%3C/text%3E%3C/svg%3E", badge: "bestseller" },
+    { id: 6, name: "Cookie", price: 1.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3ECookie%3C/text%3E%3C/svg%3E" },
+    { id: 7, name: "Cupcake", price: 3.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3ECupcake%3C/text%3E%3C/svg%3E" },
+    { id: 2, name: "Doughnut", price: 2.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EDoughnut%3C/text%3E%3C/svg%3E" },
+    { id: 4, name: "Ice Cream", price: 3.00, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EIce Cream%3C/text%3E%3C/svg%3E", badge: "popular" },
+    { id: 3, name: "Macaron", price: 3.50, img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23e040fb20'/%3E%3Ctext x='200' y='140' text-anchor='middle' font-size='64' fill='%23e040fb'%3E🍬%3C/text%3E%3Ctext x='200' y='200' text-anchor='middle' font-size='14' fill='%238a7a6a'%3EMacaron%3C/text%3E%3C/svg%3E" },
+];
+
+        const districts = [
+            "Cabdicasiis", "Boondheere", "Deyniile", "Dharkenley", "Xamar Jajab",
+            "Xamar Weyne", "Hodan", "Howlwadaag", "Huriwaa", "Kaxda", "Kaaraan",
+            "Shangaani", "Shibis", "Waaberi", "Wadajir", "Warta Nabadda", "Yaaqshiid"
+        ];
+
+        const state = {
+            coffee: { cart: [], total: 0 },
+            food: { cart: [], total: 0 },
+            drinks: { cart: [], total: 0 },
+            sweets: { cart: [], total: 0 }
+        };
+
+        let activeSection = 'coffee';
+        let countdownInterval = null;
+        let countdownSeconds = 0;
+        let countdownActive = false;
+        let countdownInCart = false;
+        let customerPhone = "";
+        let customerAddress = "";
+
+        function getCart() { return state[activeSection].cart; }
+        function getTotal() { return state[activeSection].total; }
+        function setCart(c) { state[activeSection].cart = c; }
+        function setTotal(t) { state[activeSection].total = t; }
+
+        function showCustomAlert(message) {
+            document.getElementById('customAlertMessage').innerHTML = message;
+            openModal('customAlertModal');
+        }
+
+        function initCustomDropdown() {
+            const list = document.getElementById('customSelectList');
+            list.innerHTML = districts.map(d =>
+                `<div class="px-5 py-3 hover:bg-[#c8956c]/20 cursor-pointer text-[#b0a598] hover:text-white text-sm transition-colors border-b border-white/5 last:border-0" onclick="selectAddress('${d}')">${d}</div>`
+            ).join('');
+        }
+
+        function toggleDropdown() {
+            const list = document.getElementById('customSelectList');
+            const arrow = document.getElementById('dropdownArrow');
+            if (list.classList.contains('hidden')) {
+                list.classList.remove('hidden');
+                setTimeout(() => { list.classList.remove('opacity-0', '-translate-y-2'); list.classList.add('opacity-100', 'translate-y-0'); }, 10);
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                list.classList.add('opacity-0', '-translate-y-2');
+                list.classList.remove('opacity-100', 'translate-y-0');
+                setTimeout(() => { list.classList.add('hidden'); }, 300);
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function selectAddress(address) {
+            customerAddress = address;
+            const display = document.getElementById('selectedAddressText');
+            display.innerText = address;
+            display.classList.remove('text-[#8a7a6a]');
+            display.classList.add('text-white');
+            toggleDropdown();
+        }
+
+        document.addEventListener('click', (e) => {
+            const wrapper = document.querySelector('.custom-select-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                const list = document.getElementById('customSelectList');
+                const arrow = document.getElementById('dropdownArrow');
+                if (!list.classList.contains('hidden')) {
+                    list.classList.add('opacity-0', '-translate-y-2');
+                    list.classList.remove('opacity-100', 'translate-y-0');
+                    setTimeout(() => { list.classList.add('hidden'); }, 300);
+                    arrow.style.transform = 'rotate(0deg)';
+                }
+            }
+        });
+
+        const sectionConfig = {
+            coffee: { accent: '#c8956c', glow: '0 0 12px rgba(200,149,108,0.5)', title: 'C\u{1D4D4}\u{1D4F7}\u{1D4F7}\u{1D4EA}', headerHtml: 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} <span id="headerAccent">C\u{1D4D4}\u{1D4F7}\u{1D4F7}\u{1D4EA}</span>', logo: 'Coffe_icon.png', logoGrad: 'from-[#c8956c] via-[#a0724a] to-[#5c3a21]', indicatorColor: '#c8956c', indicatorShadow: '0 0 15px rgba(200,149,108,0.35)' },
+            food: { accent: '#ff4d4d', glow: '0 0 12px rgba(255,77,77,0.5)', title: '\u{1D4D4}\u{1D4EA}\u{1D4F3}\u{1D54} \u{1D4D4}\u{1D4D4}\u{1D4D3}', headerHtml: 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} <span id="headerAccent">\u{1D4D4}\u{1D4EA}\u{1D4F3}\u{1D54} \u{1D4D4}\u{1D4D4}\u{1D4D3}</span>', logo: 'fastfood_icon.png', logoGrad: 'from-[#ff4d4d] via-[#cc0000] to-[#660000]', indicatorColor: '#ff4d4d', indicatorShadow: '0 0 15px rgba(255,77,77,0.35)' },
+            drinks: { accent: '#4fc3f7', glow: '0 0 12px rgba(79,195,247,0.5)', title: 'Drinks', headerHtml: 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} <span id="headerAccent">Drinks</span>', logo: 'Coffe_icon.png', logoGrad: 'from-[#4fc3f7] via-[#0288d1] to-[#01579b]', indicatorColor: '#4fc3f7', indicatorShadow: '0 0 15px rgba(79,195,247,0.35)' },
+            sweets: { accent: '#e040fb', glow: '0 0 12px rgba(224,64,251,0.5)', title: 'Sweets', headerHtml: 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} <span id="headerAccent">Sweets</span>', logo: 'Coffe_icon.png', logoGrad: 'from-[#e040fb] via-[#aa00ff] to-[#4a0072]', indicatorColor: '#e040fb', indicatorShadow: '0 0 15px rgba(224,64,251,0.35)' }
+        };
+
+        function switchSection(section) {
+            if (section === activeSection) return;
+            const allSections = ['coffee','food','drinks','sweets'];
+            const cfg = sectionConfig[section];
+
+            allSections.forEach(s => {
+                const el = document.getElementById(s + 'Section');
+                const tab = document.getElementById('tab' + s.charAt(0).toUpperCase() + s.slice(1));
+                if (s === section) {
+                    el.classList.remove('hidden-section');
+                    el.classList.remove('fade-in');
+                    void el.offsetWidth;
+                    el.classList.add('fade-in');
+                    tab.className = 'nav-tab active-' + s + ' px-3 md:px-5 py-2 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all duration-300 flex items-center gap-1.5 relative';
+                } else {
+                    el.classList.add('hidden-section');
+                    tab.className = 'nav-tab px-3 md:px-5 py-2 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all duration-300 flex items-center gap-1.5 relative text-white/60 hover:text-white';
+                }
+            });
+
+            const headerAccent = document.getElementById('headerAccent');
+            const headerTitle = document.getElementById('headerTitle');
+            const headerLogo = document.getElementById('headerLogo');
+            const indicator = document.getElementById('tabIndicator');
+            const activeTab = document.getElementById('tab' + section.charAt(0).toUpperCase() + section.slice(1));
+
+            headerAccent.style.color = cfg.accent;
+            headerAccent.style.textShadow = cfg.glow;
+            headerAccent.textContent = cfg.title;
+            headerTitle.innerHTML = cfg.headerHtml;
+
+            headerLogo.innerHTML = `<img src="${cfg.logo}" alt="Shumac Logo" class="w-full h-full object-cover scale-[1.2] transition-all duration-500 group-hover:scale-[1.35]" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="hidden w-full h-full bg-gradient-to-br ${cfg.logoGrad} items-center justify-center text-white font-bold font-header text-lg">S</div>
+                <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full"></div>`;
+            headerLogo.className = 'w-10 h-10 md:w-12 md:h-12 rounded-full border-2 overflow-hidden shadow-lg relative group cursor-pointer shrink-0 bg-white';
+
+            indicator.style.left = activeTab.offsetLeft + 'px';
+            indicator.style.width = activeTab.offsetWidth + 'px';
+            indicator.style.background = cfg.indicatorColor;
+            indicator.style.boxShadow = cfg.indicatorShadow;
+
+            activeSection = section;
+            updateUI();
+        }
+
+        const sectionData = {
+            coffee: { products: coffeeProducts, gridId: 'coffee-menu-grid', accent: '#c8956c', btnClass: 'add-btn-coffee', addedClass: 'added-coffee', name: 'coffee', emoji: '☕' },
+            food: { products: foodProducts, gridId: 'food-menu-grid', accent: '#ff4d4d', btnClass: 'add-btn-food', addedClass: 'added-food', name: 'food', emoji: '🍔' },
+            drinks: { products: drinksProducts, gridId: 'drinks-menu-grid', accent: '#4fc3f7', btnClass: 'add-btn-drinks', addedClass: 'added-drinks', name: 'drinks', emoji: '🥤' },
+            sweets: { products: sweetsProducts, gridId: 'sweets-menu-grid', accent: '#e040fb', btnClass: 'add-btn-sweets', addedClass: 'added-sweets', name: 'sweets', emoji: '🍬' }
+        };
+
+        function initMenu(section, filterText) {
+            const data = sectionData[section];
+            if (!data) return;
+            const products = data.products;
+            const grid = document.getElementById(data.gridId);
+            if (!grid) return;
+            grid.innerHTML = '';
+            const filtered = filterText
+                ? products.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()))
+                : products;
+
+            filtered.forEach((p, index) => {
+                const delay = index * 45;
+                const card = document.createElement('div');
+                card.className = 'card glass-panel p-3 flex flex-col justify-between';
+                card.style.animationDelay = delay + 'ms';
+                let badges = '';
+                if (p.badge === 'popular') badges += '<div class="badge-popular">⭐ Popular</div>';
+                if (p.badge === 'bestseller') badges += '<div class="badge-bestseller">🔥 Best Seller</div>';
+                card.innerHTML = `
+                    <div>
+                        <div class="menu-img-wrapper">
+                            <img src="${p.img}" alt="${p.name}" class="relative z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" loading="lazy">
+                            <div class="menu-img-fallback" style="display:none;">${data.emoji}</div>
+                            ${badges}
+                        </div>
+                        <h4 class="font-bold text-white mb-1 tracking-wide text-sm md:text-base">${p.name}</h4>
+                        <span class="font-bold block mb-3 text-sm" style="color:${data.accent}">$${p.price.toFixed(2)}</span>
+                    </div>
+                    <button class="add-btn w-full py-2.5 rounded-lg text-xs md:text-sm font-bold tracking-wider transition-all duration-300 ${data.btnClass}"
+                            data-section="${section}" data-name="${p.name}" data-price="${p.price}">
+                        + Ku Dar Dalabka
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+
+            if (filtered.length === 0 && filterText) {
+                grid.innerHTML = '<div class="col-span-full text-center py-12 text-[#6b6058]"><span class="text-3xl block mb-2">🔍</span><p class="text-sm">No ' + data.name + ' found matching "<strong class="text-white">' + filterText + '</strong>"</p></div>';
+            }
+
+            grid.querySelectorAll('.add-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const name = this.dataset.name;
+                    const price = parseFloat(this.dataset.price);
+                    const sec = this.dataset.section;
+                    const d = sectionData[sec];
+                    addToCart(name, price);
+                    this.textContent = '✓ La Daray!';
+                    this.className = this.className.replace(d.btnClass, d.addedClass);
+                    setTimeout(() => {
+                        this.textContent = '+ Ku Dar Dalabka';
+                        this.className = this.className.replace(d.addedClass, d.btnClass);
+                    }, 800);
+                });
+            });
+        }
+
+        function filterMenu(section, value) {
+            initMenu(section, value);
+        }
+
+        function addToCart(name, price) {
+            if (countdownInCart) { cancelOrder(); }
+            const cart = getCart();
+            const item = { name, price, id: Date.now() + Math.random() };
+            cart.push(item);
+            setCart(cart);
+            setTotal(getTotal() + price);
+            updateUI();
+            const totalId = activeSection + '-total-price';
+            const totalEl = document.getElementById(totalId);
+            if (totalEl) {
+                totalEl.style.transform = 'scale(1.25)';
+                totalEl.style.color = activeSection === 'coffee' ? '#c8956c' : '#ff4d4d';
+                totalEl.style.textShadow = activeSection === 'coffee' ? '0 0 25px rgba(200,149,108,0.7)' : '0 0 25px rgba(255,77,77,0.7)';
+                setTimeout(() => {
+                    totalEl.style.transform = 'scale(1)';
+                    totalEl.style.color = 'white';
+                    totalEl.style.textShadow = 'none';
+                }, 350);
+            }
+        }
+
+        function removeFromCart(id, price) {
+            let cart = getCart();
+            cart = cart.filter(item => item.id !== id);
+            setCart(cart);
+            setTotal(Math.max(0, getTotal() - price));
+            updateUI();
+        }
+
+        function cancelOrder() {
+            stopCountdown();
+            countdownInCart = false;
+            countdownActive = false;
+            setCart([]);
+            setTotal(0);
+            customerPhone = "";
+            customerAddress = "";
+            const display = document.getElementById('selectedAddressText');
+            if (display) {
+                display.innerText = "Dooro Degmadaada (Muqdisho)...";
+                display.classList.add('text-[#8a7a6a]');
+                display.classList.remove('text-white');
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            const cart = getCart();
+            const total = getTotal();
+            const cartListId = activeSection + '-cart-list';
+            const totalPriceId = activeSection + '-total-price';
+            const cartCountId = activeSection + '-cart-count';
+
+            const list = document.getElementById(cartListId);
+            const totalDisp = document.getElementById(totalPriceId);
+            const countDisp = document.getElementById(cartCountId);
+            const accent = activeSection === 'coffee' ? '#c8956c' : '#ff4d4d';
+            const emptyIcon = activeSection === 'coffee' ? '☕' : activeSection === 'food' ? '🍔' : activeSection === 'drinks' ? '🥤' : '🍬';
+
+            if (!list || !totalDisp || !countDisp) return;
+
+            countDisp.innerText = `${cart.length} Item${cart.length !== 1 ? 's' : ''}`;
+
+            if (cart.length === 0) {
+                if (countdownInCart && countdownActive) {
+                    list.innerHTML = `
+                        <div class="h-full flex flex-col items-center justify-center opacity-100 cart-item-anim transition-all duration-500 w-full mt-4">
+                            <div class="glass-panel p-6 border-[${accent}]/40 pulse-glow-anim bg-black/40 flex flex-col items-center justify-center rounded-2xl w-full max-w-[280px]">
+                                <p class="text-[10px] uppercase tracking-[0.3em] font-bold mb-3 text-center" style="color:${accent}">Saacada Dalabka</p>
+                                <div class="flex items-center justify-center gap-1.5 mb-2">
+                                    <span class="text-5xl font-header font-black text-white drop-shadow-[0_0_12px_rgba(200,149,108,0.5)]" id="cartCountMin">00</span>
+                                    <span class="text-2xl text-[#8a7a6a] pb-1">:</span>
+                                    <span class="text-5xl font-header font-black text-white drop-shadow-[0_0_12px_rgba(200,149,108,0.5)] w-[70px] text-left" id="cartCountSec">00</span>
+                                </div>
+                                <div class="mt-3 flex items-center justify-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10 mb-3">
+                                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    <span class="text-[10px] text-[#b0a598] uppercase tracking-widest font-bold">Waa Laguugu Soo Waday</span>
+                                </div>
+                                <button onclick="cancelOrder()" class="mt-1 w-full py-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 rounded-lg text-[11px] font-bold tracking-widest uppercase transition-all duration-300">Cancel Order</button>
+                            </div>
+                        </div>`;
+                    setTimeout(updateCountdownDisplays, 0);
+                } else {
+                    list.innerHTML = `
+                        <div class="h-full flex flex-col items-center justify-center opacity-35 cart-item-anim m-auto">
+                            <span class="text-5xl mb-4">${emptyIcon}</span>
+                            <p class="text-sm tracking-wide text-[#8a7a6a]">Gaadhigu waa madhan yahay...</p>
+                            <p class="text-[10px] text-[#6b6058] mt-1">Dooro ${activeSection === 'coffee' ? 'cabbitaan' : activeSection === 'food' ? 'cunto' : activeSection === 'drinks' ? 'cabitaan' : 'macmacaan'} kor ku xusan</p>
+                        </div>`;
+                }
+            } else {
+                list.innerHTML = cart.map((item, index) => `
+                    <div class="flex justify-between items-center p-3 rounded-xl bg-white/5 border border-white/5 hover:border-[${accent}]/35 transition-all duration-300 group cart-item-anim" style="animation-delay: ${index * 40}ms;">
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold border shrink-0" style="background:${accent}15;color:${accent};border-color:${accent}25">${index + 1}</div>
+                            <span class="font-medium text-sm">${item.name}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-xs text-[#b0a598]">$${item.price.toFixed(2)}</span>
+                            <button onclick="removeFromCart(${item.id}, ${item.price})" class="w-6 h-6 rounded-full bg-red-500/15 text-red-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500 hover:text-white text-[10px]" title="Ka saar">✕</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            totalDisp.innerText = '$' + total.toFixed(2);
+            saveState();
+            updateNavCounters();
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('shumac_state', JSON.stringify({
+                    coffee: { cart: state.coffee.cart, total: state.coffee.total },
+                    food: { cart: state.food.cart, total: state.food.total },
+                    drinks: { cart: state.drinks.cart, total: state.drinks.total },
+                    sweets: { cart: state.sweets.cart, total: state.sweets.total },
+                    activeSection: activeSection
+                }));
+            } catch(e) {}
+        }
+
+        function updateNavCounters() {
+            const sections = ['coffee','food','drinks','sweets'];
+            const colors = {coffee:'coffee',food:'food',drinks:'drinks',sweets:'sweets'};
+            sections.forEach(s => {
+                const badge = document.getElementById(s + '-nav-count');
+                if (badge) {
+                    const c = state[s].cart.length;
+                    badge.textContent = c;
+                    badge.classList.toggle('show', c > 0);
+                }
+            });
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function initiateCheckout(section) {
+            if (section !== activeSection) return;
+            const cart = getCart();
+            if (cart.length === 0) {
+                const sectionNames = { coffee: 'Coffea', food: 'Cuntada', drinks: 'Cabitaan', sweets: 'Macmacaan' };
+            const msg = 'Fadlan Dooro Ugu Yaraan <strong class="text-white">1 ' + sectionNames[activeSection] + '..</strong> Ka Hor Inta Aanad Dalban.';
+                document.getElementById('errorMessage').innerHTML = msg;
+                openModal('errorModal');
+                return;
+            }
+            const merchantName = activeSection === 'coffee' ? 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} C\u{1D4D4}\u{1D4F7}\u{1D4F7}\u{1D4EA}' : 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} \u{1D4D4}\u{1D4EA}\u{1D4F3}\u{1D54} \u{1D4D4}\u{1D4D4}\u{1D4D3}';
+            document.getElementById('paymentMerchantName').textContent = merchantName;
+            document.getElementById('evcTotalAmount').innerText = '$' + getTotal().toFixed(2);
+            document.getElementById('userPhoneInput').value = '';
+            document.getElementById('customerNotes').value = '';
+            openModal('paymentModal');
+        }
+
+        function verifyPayment() {
+            const phone = document.getElementById('userPhoneInput').value.trim();
+            if (phone.length < 9) {
+                showCustomAlert("Fadlan geli nambar EVC Plus sax ah. Waa inuu ka koobnaadaa ugu yaraan <strong class='text-white'>9 lambar</strong> (Tusaale: 061XXXXXXX).");
+                return;
+            }
+            customerPhone = phone;
+            closeModal('paymentModal');
+            customerAddress = "";
+            const display = document.getElementById('selectedAddressText');
+            display.innerText = "Dooro Degmadaada (Muqdisho)...";
+            display.classList.add('text-[#8a7a6a]');
+            display.classList.remove('text-white');
+            setTimeout(() => { openModal('addressModal'); }, 300);
+        }
+
+        function confirmAddress() {
+            if (!customerAddress) {
+                showCustomAlert("Fadlan <strong class='text-white'>dooro degmadaada</strong> liiska ka hor inta aadan xaqiijin.");
+                return;
+            }
+            closeModal('addressModal');
+            setTimeout(() => {
+                openModal('successModal');
+                startCountdown();
+                updateWhatsAppLink();
+            }, 300);
+        }
+
+        function updateWhatsAppLink() {
+            const numberkaaga = "252617213867";
+            const storeName = activeSection === 'coffee' ? 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} C\u{1D4D4}\u{1D4F7}\u{1D4F7}\u{1D4EA}' : 'S\u{1D4D4}\u{1D4FA}\u{1D4F1}\u{1D4EA}\u{1D4EC} \u{1D4D4}\u{1D4EA}\u{1D4F3}\u{1D54} \u{1D4D4}\u{1D4D4}\u{1D4D3}';
+            const cart = getCart();
+            const total = getTotal();
+            let msg = `*DALAB CUSUB - ${storeName}*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n`;
+            cart.forEach((item, i) => { msg += `${i + 1}. ${item.name} — $${item.price.toFixed(2)}\n`; });
+            msg += `\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n`;
+            msg += `\u{1F4B0} *Wadarta Guud:* $${total.toFixed(2)}\n`;
+            msg += `\u{1F4F1} *Nambarka Macmiilka:* ${customerPhone}\n`;
+            msg += `\u{1F4CD} *Degmada:* ${customerAddress}\n`;
+            msg += `\u{1F552} *Diyaarinta:* 15 Daqiiqo Gudahood`;
+            const url = `https://wa.me/${numberkaaga}?text=${encodeURIComponent(msg)}`;
+            document.getElementById('whatsappBtn').setAttribute('data-whatsapp-url', url);
+        }
+
+        function sendWhatsApp() {
+            const url = document.getElementById('whatsappBtn').getAttribute('data-whatsapp-url');
+            if (url) window.open(url, '_blank');
+            setCart([]);
+            setTotal(0);
+            countdownInCart = true;
+            updateUI();
+            closeModal('successModal');
+        }
+
+        function startCountdown() {
+            stopCountdown();
+            countdownSeconds = 15 * 60;
+            countdownActive = true;
+            countdownInCart = false;
+            updateCountdownDisplays();
+            countdownInterval = setInterval(() => {
+                countdownSeconds--;
+                if (countdownSeconds <= 0) { cancelOrder(); return; }
+                updateCountdownDisplays();
+            }, 1000);
+        }
+
+        function stopCountdown() {
+            if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+        }
+
+        function updateCountdownDisplays() {
+            const mins = Math.floor(countdownSeconds / 60);
+            const secs = countdownSeconds % 60;
+            const minStr = String(mins).padStart(2, '0');
+            const secStr = String(secs).padStart(2, '0');
+            const modalMin = document.getElementById('modalCountMin');
+            const modalSec = document.getElementById('modalCountSec');
+            if (modalMin) modalMin.textContent = minStr;
+            if (modalSec) modalSec.textContent = secStr;
+            const cartMin = document.getElementById('cartCountMin');
+            const cartSec = document.getElementById('cartCountSec');
+            if (cartMin) cartMin.textContent = minStr;
+            if (cartSec) cartSec.textContent = secStr;
+        }
+
+        function minimizeSuccessModal() {
+            closeModal('successModal');
+            setCart([]);
+            setTotal(0);
+            countdownInCart = true;
+            updateUI();
+        }
+
+        document.querySelectorAll('.checkout-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                initiateCheckout(this.dataset.section);
+            });
+        });
+
+        function updateTabIndicator() {
+            const indicator = document.getElementById('tabIndicator');
+            const tab = document.getElementById('tab' + activeSection.charAt(0).toUpperCase() + activeSection.slice(1));
+            if (tab) {
+                indicator.style.left = tab.offsetLeft + 'px';
+                indicator.style.width = tab.offsetWidth + 'px';
+                indicator.style.background = sectionConfig[activeSection].indicatorColor;
+                indicator.style.boxShadow = sectionConfig[activeSection].indicatorShadow;
+            }
+        }
+
+        function restoreState() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('shumac_state'));
+                if (saved) {
+                    ['coffee','food','drinks','sweets'].forEach(s => {
+                        if (saved[s]) { state[s].cart = saved[s].cart; state[s].total = saved[s].total; }
+                    });
+                    if (saved.activeSection) activeSection = saved.activeSection;
+                }
+            } catch(e) {}
+        }
+
+        window.addEventListener('load', () => {
+            restoreState();
+            ['coffee','food','drinks','sweets'].forEach(s => initMenu(s));
+            initCustomDropdown();
+
+            const allSections = ['coffee','food','drinks','sweets'];
+            allSections.forEach(s => {
+                const el = document.getElementById(s + 'Section');
+                const tab = document.getElementById('tab' + s.charAt(0).toUpperCase() + s.slice(1));
+                if (s === activeSection) {
+                    el.classList.remove('hidden-section');
+                    el.classList.add('fade-in');
+                    tab.className = 'nav-tab active-' + s + ' px-3 md:px-5 py-2 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all duration-300 flex items-center gap-1.5 relative';
+                    document.getElementById('headerAccent').style.color = sectionConfig[s].accent;
+                    document.getElementById('headerAccent').style.textShadow = sectionConfig[s].glow;
+                } else {
+                    el.classList.add('hidden-section');
+                    tab.className = 'nav-tab px-3 md:px-5 py-2 rounded-xl font-bold text-xs md:text-sm tracking-wide transition-all duration-300 flex items-center gap-1.5 relative text-white/60 hover:text-white';
+                }
+            });
+
+            updateUI();
+            setTimeout(updateTabIndicator, 100);
+        });
+
+        window.addEventListener('resize', updateTabIndicator);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['successModal', 'errorModal', 'paymentModal', 'addressModal', 'customAlertModal'].forEach(modal => {
+                    const el = document.getElementById(modal);
+                    if (el && el.classList.contains('active')) {
+                        if (modal === 'successModal') minimizeSuccessModal();
+                        else closeModal(modal);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
